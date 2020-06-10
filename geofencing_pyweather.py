@@ -20,18 +20,19 @@ firebase_admin.initialize_app(cred, {
 
 def haversine(lon1, lat1, lon2, lat2):
     """
-    Calculate the great circle distance between two points 
+    Calculate the great circle distance between two points
     on the earth (specified in decimal degrees)
     """
-    # convert decimal degrees to radians 
+    # convert decimal degrees to radians
     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
 
-    # haversine formula 
-    dlon = lon2 - lon1 
-    dlat = lat2 - lat1 
+    # haversine formula
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
     a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-    c = 2 * asin(sqrt(a)) 
+    c = 2 * asin(sqrt(a))
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles
+    print('Haversine result: ', c * r)
     return c * r
 
 #--------------------------------------------------------------------------------------------------------------------
@@ -51,7 +52,7 @@ def print_weather(result):
 
 #-------------------------------------------------------------------------------------------------------------------------
 
-#GEOFENCING 
+#GEOFENCING
 
 #Input Values latitude and longitude
 #Retrieve values from firebase
@@ -87,7 +88,7 @@ else:
 
 #-------------------------------------------------------------------------------------------------------------------------
 
-#WEATHER 
+#WEATHER
 
 w_data=weather_data(t[0], t[1])
 weather_dict_list = print_weather(w_data)
@@ -126,4 +127,3 @@ users_ref.child('user2').set({
     'temperature': weather_dict_list[0],
     'weather_condition': weather_dict_list[1]
 })
-
